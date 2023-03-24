@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 import AsciiChars.AsciiChars;
@@ -144,6 +145,8 @@ public class App {
             ballNum -= MAX_BALL_NUM;
         }
 
+        if (ballNum <=0) ballNum += 16;
+
         return ballNum;
     }
 
@@ -162,6 +165,8 @@ public class App {
             num -= MAX_LOTTORY_NUM;
         }
 
+        if (num <=0) num += 9;
+
         return num;
 
     }
@@ -174,6 +179,8 @@ public class App {
         if (num > MAX_LOTTORY_NUM) {
             num -= MAX_LOTTORY_NUM;
         }
+
+        if (num <=0) num += 7;
 
         return num;
 
@@ -189,6 +196,8 @@ public class App {
         if (num > MAX_LOTTORY_NUM) {
             num -= MAX_LOTTORY_NUM;
         }
+
+        if (num <=0) num += 10;
 
         return num;
     }
@@ -207,6 +216,8 @@ public class App {
         if (num > MAX_LOTTORY_NUM) {
             num -= MAX_LOTTORY_NUM;
         }
+
+        if (num <=0) num += 8;
 
         return num;
     }
@@ -227,6 +238,8 @@ public class App {
             num -= MAX_LOTTORY_NUM;
         }
 
+        if (num <=0) num += 6;
+
         return num;
     }
 
@@ -240,6 +253,8 @@ public class App {
             num -= MAX_LOTTORY_NUM;
         }
 
+        if (num <=0) num += 5;
+
         return num;
     }
 
@@ -252,6 +267,8 @@ public class App {
         if (num > MAX_LOTTORY_NUM) {
             num -= MAX_LOTTORY_NUM;
         }
+        
+        if (num <=0) num += 42; 
 
         return num;
     }
@@ -275,8 +292,79 @@ public class App {
         // Get the fifth lottory number
         int fifthNum = getANumberUsingJerzeyNumPetAgeAndLuckyNum();
 
-        System.out.printf("\nlottery numbers: %d, %d, %d, %d, %d Magic Ball: %d\n", firstNum, secondNum, thirdNum,
-                fourthNum, fifthNum, ball);
+       /*  System.out.printf("\nlottery numbers: %d, %d, %d, %d, %d Magic Ball: %d\n", firstNum, secondNum, thirdNum,
+                fourthNum, fifthNum, ball); */
 
+       //
+       ArrayList<Integer> lottery = new ArrayList<Integer>();
+       lottery.add(firstNum);
+
+       //Check the rest of the numbers to make sure there is no duplicate added to the lollery ArrayList
+       if(secondNum != firstNum)
+          lottery.add(secondNum);
+       else
+       {
+            do{
+                secondNum = getANumberUsingRandomNumbers();
+            }while(secondNum == firstNum);
+
+            lottery.add(secondNum);
+      }
+       
+      if((thirdNum != secondNum) && (thirdNum != firstNum))
+        lottery.add(thirdNum);
+      else
+      {
+        do{
+            thirdNum = getANumberUsingRandomNumbers();
+        }while((thirdNum == firstNum) || (thirdNum == secondNum));
+
+        lottery.add(thirdNum);
+      }
+
+    if((fourthNum != firstNum) && (fourthNum != secondNum) && (fourthNum != thirdNum) )
+      lottery.add(fourthNum);
+    else
+    {
+      do{
+          fourthNum = getANumberUsingRandomNumbers();
+      }while((fourthNum == firstNum) || (fourthNum == secondNum)||(fourthNum == thirdNum));
+
+      lottery.add(fourthNum);
     }
+
+    if((fifthNum != firstNum) && (fifthNum != secondNum) && (fifthNum != thirdNum) && (fifthNum != fourthNum))
+        lottery.add(fifthNum);
+    else
+    {
+        do{
+            fifthNum = getANumberUsingRandomNumbers();
+        }while((fifthNum == firstNum) || (fifthNum == secondNum)||(fifthNum == thirdNum) ||(fifthNum == fourthNum));
+
+        lottery.add(fifthNum);
+    }
+
+    //Sort the lottory numbers
+    Collections.sort(lottery); 
+    
+    // For Each Loop for iterating ArrayList
+    System.out.print("\nLottery numbers: ");
+    /* for (Integer i : lottery){
+ 
+        // Printing the elements of ArrayList
+        System.out.print(i + ", ");
+
+    } */
+
+    for (int i = 0; i < lottery.size(); i++)
+    {
+        if(i != (lottery.size()-1))
+            System.out.print(lottery.get(i) + ", ");
+        else
+            System.out.print(lottery.get(i) + "  ");
+    }
+
+    System.out.printf(" Magic Ball: %d\n", ball);
+
+    }     
 }
